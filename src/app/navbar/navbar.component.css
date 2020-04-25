@@ -1,0 +1,9 @@
+/* it will fill the space between the logo and the links*/
+.fill-space {
+  flex: 1 1 auto;
+}
+
+a{
+  text-decoration: none;
+  margin-right: 10px;
+}
