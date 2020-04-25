@@ -1,0 +1,9 @@
+<p>imp-date-display works!</p>
+
+<div *ngFor="let impDate of impDates | async">
+
+  <h1 data-test="date">{{impDate.date | date}}</h1>
+
+  <p>{{impDate.title}}</p>
+
+</div>

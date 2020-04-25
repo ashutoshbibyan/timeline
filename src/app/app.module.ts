@@ -8,12 +8,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { ImpDateDisplayComponent } from './imp-date-display/imp-date-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    ImpDateDisplayComponent
   ],
   imports: [
     BrowserModule,

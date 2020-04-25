@@ -32,7 +32,7 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    htmlElement = fixture.nativeElement;
+    htmlElement = fixture.debugElement.nativeElement;
     fixture.detectChanges();
   });
 
