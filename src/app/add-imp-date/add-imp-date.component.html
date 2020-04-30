@@ -1,0 +1,7 @@
+<p>add-imp-date works!</p>
+<form  [formGroup]="formGroupAddImpDate" data-test="form-addimpdate" (ngSubmit)="onSubmit()" >
+
+    <input type="date" placeholder="Important Date" data-test="input-impdate" formControlName="impdate">
+    <input type="text" placeholder="Title For the Date " data-test="input-imptitle" formControlName="imptitle">
+    <button data-test="btn-submit" type="submit">Submit</button>
+</form>

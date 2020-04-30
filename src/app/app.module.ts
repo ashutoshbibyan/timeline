@@ -7,16 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule } from '@angular/forms';
 import { ImpDateDisplayComponent } from './imp-date-display/imp-date-display.component';
 import {HttpClientModule} from "@angular/common/http";
+import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    ImpDateDisplayComponent
+    ImpDateDisplayComponent,
+    AddImpDateComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
