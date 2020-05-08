@@ -3,8 +3,7 @@ import { LogInService } from './../service/log-in.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import { EventEmitter } from 'protractor';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder,ReactiveFormsModule} from '@angular/forms';
 import { Router} from '@angular/router';
 
 
@@ -17,6 +16,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[ReactiveFormsModule],
       declarations: [ LoginComponent ],
       providers:[
         {provide: FormBuilder },
@@ -52,13 +52,14 @@ describe('LoginComponent', () => {
 
     const userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
 
-    const event = new Event('Input');
-
     userName.value = 'ashutosh' ;
 
-    userName.dispatchEvent(event);
+    // the new Event maynot work in old browser but we are using chrome so its okay here
+    userName.dispatchEvent(new Event('input'));
 
-    expect(userName.value).toBe('ashutosh');
+    fixture.detectChanges();
+
+    expect(component.formLogin.controls['userName'].value).toBe('ashutosh');
 
   });
 
@@ -66,13 +67,16 @@ describe('LoginComponent', () => {
 
     const password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
 
-    const event = new Event('Input');
+    // the new Event maynot work in old browser but we are using chrome so its okay here
+    const event = new Event('input');
 
     password.value = '123456' ;
 
     password.dispatchEvent(event);
 
-    expect(password.value).toBe('123456');
+    fixture.detectChanges();
+
+    expect(component.formLogin.controls["password"].value).toBe('123456');
 
   });
 

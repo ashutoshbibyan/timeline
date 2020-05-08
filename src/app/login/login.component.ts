@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
      private router: Router ) { }
 
   ngOnInit(): void {
-      this.formLogin = this.formbuilder.group({
+    this.formLogin = this.formbuilder.group({
 
       userName: [''],
 
@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
       });
 
-     console.log(this.formLogin);
   }
 
   onSubmit(){
