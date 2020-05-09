@@ -36,49 +36,25 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
-  it( 'should show the login form' , () => {
+  describe('Component Intialized' , () => {
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it( 'should show the login form' , () => {
 
       expect(htmlElement.querySelector('[data-test="input-userName"]')).toBeTruthy();
       expect(htmlElement.querySelector('[data-test="input-password"]')).toBeTruthy();
       expect(htmlElement.querySelector('[data-test="btn-submit"]')).toBeTruthy();
 
-  });
-
-  it('should emit the username on input event ' , () => {
-
-    const userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
-
-    userName.value = 'ashutosh' ;
-
-    // the new Event maynot work in old browser but we are using chrome so its okay here
-    userName.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    expect(component.formLogin.controls['userName'].value).toBe('ashutosh');
+    });
 
   });
 
-  it('should emit the password on input event' , () => {
 
-    const password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
 
-    // the new Event maynot work in old browser but we are using chrome so its okay here
-    const event = new Event('input');
-
-    password.value = '123456' ;
-
-    password.dispatchEvent(event);
-
-    fixture.detectChanges();
-
-    expect(component.formLogin.controls["password"].value).toBe('123456');
-
-  });
 
 
   it('should authenticate the user and navigate to /user/home if authenticated else to /error' , () => {
@@ -93,5 +69,184 @@ describe('LoginComponent', () => {
 
   });
 
+
+
+  describe('LogIn Form Validation', () => {
+
+
+    it('Should emit the username on input event ' , () => {
+
+      const userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = 'ashutosh' ;
+
+      // the new Event maynot work in old browser but we are using chrome so its okay here
+      userName.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      expect(component.formLogin.controls['userName'].value).toBe('ashutosh');
+
+    });
+
+    it('Should emit the password on input event' , () => {
+
+      const password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      // the new Event maynot work in old browser but we are using chrome so its okay here
+      const event = new Event('input');
+
+      password.value = '123456' ;
+
+      password.dispatchEvent(event);
+
+      fixture.detectChanges();
+
+      expect(component.formLogin.controls["password"].value).toBe('123456');
+
+    });
+
+    it('Should show INVALID Validation for UserName Not Entered  ' , () => {
+
+      // get the userName Element
+      let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = "";
+
+      userName.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      // check if the Validation is correct
+
+      expect(component.formLogin.status).toEqual("INVALID");
+
+
+    });
+
+    it('Should show INVALID Validation for Password not Entered ' , () => {
+
+      // get the password Element
+      let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      password.value = "";
+
+      password.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      // check if the Validation is correct
+
+      expect(component.formLogin.status).toEqual("INVALID");
+
+
+    });
+
+    it('Should show INVALID Validation for UserName with empty spaces  ' , () => {
+
+      // get the userName Element
+      let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = "     ";
+
+      userName.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      // check if the Validation is correct
+
+      expect(component.formLogin.status).toEqual("INVALID");
+
+
+    });
+
+
+    it('Should show INVALID Validation for Password with empty spaces ' , () => {
+
+      // get the password Element
+      let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      password.value = "     ";
+
+      password.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      // check if the Validation is correct
+
+      expect(component.formLogin.status).toEqual("INVALID");
+
+
+    });
+
+    it('Should show VALID Validation When UserName and Password with Right Value ' , () => {
+
+      // get the password Element
+      let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = "ashutosh";
+
+      userName.dispatchEvent(new Event("input"));
+
+      password.value = "123456";
+
+      password.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      // check if the Validation is correct
+
+      expect(component.formLogin.status).toEqual("VALID");
+
+
+    });
+
+    it('Submit button should be Disabled when validation is correct ' , () => {
+      let btnSubmit: HTMLButtonElement = htmlElement.querySelector('[data-test="btn-submit"]');
+
+       // get the password Element
+      let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = "  ";
+
+      userName.dispatchEvent(new Event("input"));
+
+      password.value = "   ";
+
+      password.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      expect(btnSubmit.disabled).toEqual(true);
+
+    });
+
+    it('Submit button should only be active when validation is correct ' , () => {
+      let btnSubmit: HTMLButtonElement = htmlElement.querySelector('[data-test="btn-submit"]');
+
+       // get the password Element
+      let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
+
+      let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
+
+      userName.value = "ashutosh";
+
+      userName.dispatchEvent(new Event("input"));
+
+      password.value = "123456";
+
+      password.dispatchEvent(new Event("input"));
+
+      fixture.detectChanges();
+
+      expect(btnSubmit.disabled).toEqual(false);
+
+    });
+
+  });
 
 });

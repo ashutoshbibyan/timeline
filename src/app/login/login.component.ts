@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
 import { LogInService } from './../service/log-in.service';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder , FormGroup} from '@angular/forms';
+import {FormBuilder , FormGroup, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
+import { notEmpty } from '../custom_validators/not-empty-validator';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.formLogin = this.formbuilder.group({
 
-      userName: [''],
+      userName: ['',[notEmpty()] ],
 
-      password: ['']
+      password: ['' , [notEmpty()]]
 
       });
 

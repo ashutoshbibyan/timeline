@@ -4,6 +4,6 @@
 
   <input type="password" data-test="input-password" placeholder="Password" formControlName='password'>
 
-  <button data-test="btn-submit">Submit</button>
+  <button data-test="btn-submit" [disabled]="!formLogin.valid">Submit</button>
 
 </form>
