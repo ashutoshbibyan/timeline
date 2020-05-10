@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup , FormBuilder} from "@angular/forms";
+import { FormGroup , FormBuilder, Validators} from "@angular/forms";
 import { DateService } from '../service/date.service';
 import { Importantdate } from '../models/importantdate';
 import { Notification } from '../models/notification';
+import { notEmpty } from '../custom_validators/not-empty-validator';
 
 @Component({
   selector: 'app-add-imp-date',
@@ -14,15 +15,15 @@ export class AddImpDateComponent implements OnInit {
   formGroupAddImpDate: FormGroup;
 
   notification: Notification ;
-  
+
   constructor(private formBuilder: FormBuilder , private dateService: DateService) { }
 
   ngOnInit(): void {
 
     this.formGroupAddImpDate = this.formBuilder.group({
 
-      impdate:[""],
-      imptitle:[""]
+      impdate:["" , [Validators.required]],
+      imptitle:["" , [notEmpty()]]
 
     });
 

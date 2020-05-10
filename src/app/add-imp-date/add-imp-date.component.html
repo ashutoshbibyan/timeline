@@ -3,5 +3,5 @@
 
     <input type="date" placeholder="Important Date" data-test="input-impdate" formControlName="impdate">
     <input type="text" placeholder="Title For the Date " data-test="input-imptitle" formControlName="imptitle">
-    <button data-test="btn-submit" type="submit">Submit</button>
+    <button data-test="btn-submit" type="submit" [disabled] = "!formGroupAddImpDate.valid">Submit</button>
 </form>
