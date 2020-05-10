@@ -106,25 +106,23 @@ describe('LoginComponent', () => {
 
     });
 
-    it('Should show INVALID Validation for UserName Not Entered  ' , () => {
+    it('Validation should be false when userName is not Entered ' , () => {
 
       // get the userName Element
       let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
 
       userName.value = "";
-
       userName.dispatchEvent(new Event("input"));
-
       fixture.detectChanges();
 
-      // check if the Validation is correct
+     // check if the Validation is correct
 
-      expect(component.formLogin.status).toEqual("INVALID");
+      expect(component.formLogin.controls['userName'].valid).toEqual(false);
 
 
     });
 
-    it('Should show INVALID Validation for Password not Entered ' , () => {
+    it('Validation Should Be false When Password is not Entered  ' , () => {
 
       // get the password Element
       let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
@@ -137,12 +135,12 @@ describe('LoginComponent', () => {
 
       // check if the Validation is correct
 
-      expect(component.formLogin.status).toEqual("INVALID");
+      expect(component.formLogin.controls['password'].valid).toEqual(false);
 
 
     });
 
-    it('Should show INVALID Validation for UserName with empty spaces  ' , () => {
+    it('Validation Should Be False When UserName is Just Empty Spaces' , () => {
 
       // get the userName Element
       let userName: HTMLInputElement = htmlElement.querySelector('[data-test="input-userName"]');
@@ -155,13 +153,13 @@ describe('LoginComponent', () => {
 
       // check if the Validation is correct
 
-      expect(component.formLogin.status).toEqual("INVALID");
+      expect(component.formLogin.controls['userName'].valid).toEqual(false);
 
 
     });
 
 
-    it('Should show INVALID Validation for Password with empty spaces ' , () => {
+    it('Validation Should Be False When Password is Just Empty Space' , () => {
 
       // get the password Element
       let password: HTMLInputElement = htmlElement.querySelector('[data-test="input-password"]');
@@ -174,7 +172,7 @@ describe('LoginComponent', () => {
 
       // check if the Validation is correct
 
-      expect(component.formLogin.status).toEqual("INVALID");
+      expect(component.formLogin.controls['password'].valid).toEqual(false);
 
 
     });
@@ -203,7 +201,7 @@ describe('LoginComponent', () => {
 
     });
 
-    it('Submit button should be Disabled when validation is correct ' , () => {
+    it('Submit button Should Be Disabled When There Are Validation Error  ' , () => {
       let btnSubmit: HTMLButtonElement = htmlElement.querySelector('[data-test="btn-submit"]');
 
        // get the password Element
@@ -225,7 +223,7 @@ describe('LoginComponent', () => {
 
     });
 
-    it('Submit button should only be active when validation is correct ' , () => {
+    it('Submit button Should be Active When No Validation Error Occur  ' , () => {
       let btnSubmit: HTMLButtonElement = htmlElement.querySelector('[data-test="btn-submit"]');
 
        // get the password Element
