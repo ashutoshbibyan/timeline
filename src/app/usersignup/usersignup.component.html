@@ -1,0 +1,10 @@
+<p>usersignup works!</p>
+
+<form [formGroup]="userSignupForm" (ngSubmit)="onSubmit()">
+
+  <input type="text" placeholder="UserName" data-test="input-username" formControlName="userName">
+  <input type="password" placeholder="Password" data-test="input-password" formControlName="password">
+  <button type="submit" data-test="btn-submit" [disabled]="!userSignupForm.valid">Submit</button>
+
+
+</form>

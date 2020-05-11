@@ -11,6 +11,7 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { ImpDateDisplayComponent } from './imp-date-display/imp-date-display.component';
 import {HttpClientModule} from "@angular/common/http";
 import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
+import { UsersignupComponent } from './usersignup/usersignup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
     NavbarComponent,
     LoginComponent,
     ImpDateDisplayComponent,
-    AddImpDateComponent
+    AddImpDateComponent,
+    UsersignupComponent
   ],
   imports: [
     BrowserModule,
