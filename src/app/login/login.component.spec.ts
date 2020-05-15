@@ -1,3 +1,5 @@
+import { Notification } from './../models/notification';
+import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LogInService } from './../service/log-in.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -57,9 +59,11 @@ describe('LoginComponent', () => {
 
 
 
-  it('should authenticate the user and navigate to /user/home if authenticated else to /error' , () => {
+  it('should authenticate the user and navigate to /user/home if authenticated ' , () => {
 
-    let authentication = logInMockService.authenticate.and.returnValue(true);
+    let response: Notification = {successStatus:true , errorStatus: false , notificationMsg:"authenticatd"};
+
+    let authentication = logInMockService.authenticate.and.returnValue(of(response));
 
     htmlElement.querySelector('[data-test="form-login"]').dispatchEvent(new Event('ngSubmit'));
     fixture.detectChanges();

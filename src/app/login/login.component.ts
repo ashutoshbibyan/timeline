@@ -33,7 +33,12 @@ export class LoginComponent implements OnInit {
     const userName = this.formLogin.controls['userName'].value;
     const password = this.formLogin.controls['password'].value;
 
-    let authenticated = this.logInService.authenticate(userName , password);
+    let authenticated: boolean =  false ;
+
+    this.logInService.authenticate(userName , password).subscribe((res)=>{
+
+      authenticated = res.successStatus;
+    });
 
     (authenticated) ? this.router.navigateByUrl('/user/home') : this.router.navigateByUrl('/error');
   }
