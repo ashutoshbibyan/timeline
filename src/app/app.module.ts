@@ -12,6 +12,7 @@ import { ImpDateDisplayComponent } from './imp-date-display/imp-date-display.com
 import {HttpClientModule} from "@angular/common/http";
 import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
 import { UsersignupComponent } from './usersignup/usersignup.component';
+import { AddtimelineComponent } from './addtimeline/addtimeline.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UsersignupComponent } from './usersignup/usersignup.component';
     LoginComponent,
     ImpDateDisplayComponent,
     AddImpDateComponent,
-    UsersignupComponent
+    UsersignupComponent,
+    AddtimelineComponent
   ],
   imports: [
     BrowserModule,

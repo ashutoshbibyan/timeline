@@ -1,0 +1,15 @@
+<p>addtimeline works!</p>
+<form [formGroup]="timelineFormgroup" (ngSubmit)="onSubmit()" >
+
+  <input type="text" placeholder="TimeLine Name" data-test="input-timeline-name" formControlName="timelineName">
+  <input type="date" placeholder="Starting Date" data-test="input-starting-date" formControlName="startingDate">
+  <select id="cars" data-test="select-timeline-type" formControlName="selectTimelineType" >
+
+    <option *ngFor="let type of timelineTypes" [value]='type'>{{type}}</option>
+
+  </select>
+
+  <button data-test="btn-submit" type="submit" [disabled]="timelineFormgroup.invalid">Submit</button>
+
+</form>
+
