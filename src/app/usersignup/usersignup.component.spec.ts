@@ -3,16 +3,17 @@ import { of } from 'rxjs';
 import { Notification } from './../models/notification';
 import { UserService } from './../service/user.service';
 import { FormBuilder , ReactiveFormsModule} from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { UsersignupComponent } from './usersignup.component';
 
 describe('UsersignupComponent', () => {
   let component: UsersignupComponent;
   let fixture: ComponentFixture<UsersignupComponent>;
-  let userServiceMock: jasmine.SpyObj<UserService> =  jasmine.createSpyObj("UserService" , ["signUp"]);
+  let userServiceMock: jasmine.SpyObj<UserService> ;
 
   beforeEach(async(() => {
+    userServiceMock =  jasmine.createSpyObj("UserService" , ["signUp"]);
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ UsersignupComponent ],
@@ -34,6 +35,7 @@ describe('UsersignupComponent', () => {
       return  fixture.debugElement.nativeElement.querySelector(element);
   }
 
+
   describe('Component Intitalized' , () => {
 
     it('should create', () => {
@@ -44,6 +46,7 @@ describe('UsersignupComponent', () => {
       let inputUserName: HTMLInputElement = el('[data-test="input-username"]');
       let inputPassword: HTMLInputElement = el('[data-test="input-password"]');
       let btnSubmit: HTMLButtonElement = el ('[data-test="btn-submit"]');
+
 
       expect(inputUserName).toBeTruthy();
       expect (inputPassword).toBeTruthy();
@@ -112,15 +115,16 @@ describe('UsersignupComponent', () => {
 
     it("UserService Signup Method should be called when OnSubmit Method is Executed " , () => {
 
-        let notification: Notification = {successStatus : false , errorStatus : true ,notificationMsg:"Error While Signup"};
+      let notification: Notification = {successStatus : false , errorStatus : true ,notificationMsg:"Error While Signup"};
 
-        let signUpMock = userServiceMock.signUp.and.returnValue(of(notification));
+      let signUpMock = userServiceMock.signUp.and.returnValue(of(notification));
 
-        component.onSubmit();
+      component.onSubmit();
 
-        expect(signUpMock).toHaveBeenCalledTimes(1);
 
-    });
+      expect(signUpMock).toHaveBeenCalledTimes(1);
+
+  });
 
     it("UserService Signup Method should be called with the data entered by user " , () => {
 

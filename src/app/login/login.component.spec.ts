@@ -13,10 +13,12 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let htmlElement: HTMLElement ;
-  const logInMockService: jasmine.SpyObj<LogInService> = jasmine.createSpyObj<LogInService>('LogInService' , ['authenticate']) ;
-  const mockRouter: jasmine.SpyObj<Router> = jasmine.createSpyObj<Router>('Router', ['navigateByUrl']);
+  let logInMockService: jasmine.SpyObj<LogInService> ;
+  let mockRouter: jasmine.SpyObj<Router> ;
 
   beforeEach(async(() => {
+    logInMockService = jasmine.createSpyObj<LogInService>('LogInService' , ['authenticate']) ;
+    mockRouter  = jasmine.createSpyObj<Router>('Router', ['navigateByUrl']);
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ LoginComponent ],

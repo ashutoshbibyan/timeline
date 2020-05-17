@@ -9,10 +9,11 @@ describe('ImpDateDisplayComponent', () => {
   let component: ImpDateDisplayComponent;
   let fixture: ComponentFixture<ImpDateDisplayComponent>;
 
-  let dateServiceMock: jasmine.SpyObj<DateService> = jasmine.createSpyObj<DateService> ('DateService',['getImporantDate']);
+  let dateServiceMock: jasmine.SpyObj<DateService> ;
   let htmlElement: HTMLElement;
 
   beforeEach(async(() => {
+    dateServiceMock = jasmine.createSpyObj<DateService> ('DateService',['getImporantDate']);
     TestBed.configureTestingModule({
       declarations: [ ImpDateDisplayComponent ],
       providers:[

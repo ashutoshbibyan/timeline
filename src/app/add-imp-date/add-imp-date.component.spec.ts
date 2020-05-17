@@ -13,9 +13,10 @@ describe('AddImpDateComponent', () => {
   let component: AddImpDateComponent;
   let fixture: ComponentFixture<AddImpDateComponent>;
   let nativeElement: any ;
-  let dateServiceMock: jasmine.SpyObj<DateService> = jasmine.createSpyObj<DateService>("DateService" , ['addImpDate']);
+  let dateServiceMock: jasmine.SpyObj<DateService> ;
 
   beforeEach(async(() => {
+    dateServiceMock = jasmine.createSpyObj<DateService>("DateService" , ['addImpDate']);
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ AddImpDateComponent ],
