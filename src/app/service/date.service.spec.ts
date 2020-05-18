@@ -1,71 +1,123 @@
-import { TestBed } from '@angular/core/testing';
+import { Notification } from './../models/notification';
+import { TestBed, getTestBed } from '@angular/core/testing';
 
 import { DateService } from './date.service';
 
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { Notification } from '../models/notification';
 import { Importantdate } from '../models/importantdate';
 
 describe('DateService', () => {
   let service: DateService;
-  let httpClientMock: jasmine.SpyObj<HttpClient> =
-
-  jasmine.createSpyObj<HttpClient>('HttpClient' , ['get' , 'post']);
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers:[
-        {provide: HttpClient , useValue: httpClientMock}
-      ]
+      imports:[HttpClientTestingModule]
     });
+    httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(DateService);
 
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get the list of impdate from rest api at url = /api/pvt/impdates  with the get request' , () => {
+  describe('Test The getImporantDate for api calls at /api/pvt/impdates ' , () => {
 
-    // Mock the httpClient behaviour
-    let clientSpy: jasmine.Spy = httpClientMock.get.and.returnValue(of([
-      { date: new Date() , title : 'last'}
-    ]));
+    let testUrl = "/api/pvt/impdates";
 
-    // call the getImportantDated method
-    service.getImporantDate();
+    it('should make the reqest to the api' , () => {
 
-    // check if it call the correct url for the data
-    expect(clientSpy).toHaveBeenCalledWith('/api/pvt/impdates');
+      service.getImporantDate().subscribe();
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      expect(req).toBeTruthy();
+
+    });
+
+
+    it('should make the reqest to the api with get method ' , () => {
+
+      service.getImporantDate().subscribe();
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      expect(req.request.method).toEqual("GET");
+
+    });
+
+    it('should send the mockresponse back ' , () => {
+      let mockres: Importantdate [] = [{date: new Date() , title: "First"} , {date: new Date() , title: "second"}];
+      service.getImporantDate().subscribe((res) =>{
+        expect(res).toEqual(mockres);
+      });
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      req.flush(mockres);
+
+    });
 
   });
 
-  it('should add the imp date by calling rest api at url = /api/pvt/impdate  with the post request' , () => {
-
-    const notification: Notification = new Notification();
-    notification.successStatus = true ;
-    notification.notificationMsg = "Date is added ";
-    notification.errorStatus = false ;
-
-    // Mock the httpClient behaviour and return the notification object 
-    let clientSpy: jasmine.Spy = httpClientMock.post.and.returnValue(of(notification));
 
 
+  describe('Test The addImpoortantDate for api calls at /api/pvt/impdate ' , () => {
 
-    // call the getImportantDated method
-    let impDate: Importantdate = {date: new Date("01/01/2020") , title: "Test Date"};
-    service.addImpDate(impDate);
+    let testUrl = "/api/pvt/impdate";
+    let testParam: Importantdate = {date: new Date() , title: "test"};
+
+    it('should make the reqest to the api' , () => {
+
+      service.addImpDate(testParam).subscribe();
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      expect(req).toBeTruthy();
+
+    });
 
 
+    it('should make the reqest to the api with get method ' , () => {
 
-    // check if it call the correct url for the data
-    expect(clientSpy).toHaveBeenCalledWith('/api/pvt/impdate' , impDate);
+      service.addImpDate(testParam).subscribe();
 
-   
+      let req = httpTestingController.expectOne(testUrl);
+
+      expect(req.request.method).toEqual("POST");
+
+    });
+
+    it('should make the reqest to the api with Test Param  ' , () => {
+
+      service.addImpDate(testParam).subscribe();
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      expect(req.request.body).toEqual(testParam);
+
+    });
+
+    it('should send the mockresponse back ' , () => {
+      let mockres: Notification = {successStatus: true , errorStatus: false , notificationMsg :"Date is added "} ;
+      service.addImpDate(testParam).subscribe((res) =>{
+        expect(res).toEqual(mockres);
+      });
+
+      let req = httpTestingController.expectOne(testUrl);
+
+      req.flush(mockres);
+
+    });
+
   });
-
 
 });

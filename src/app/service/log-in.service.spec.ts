@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 describe('LogInService', () => {
   let service: LogInService;
   let httpTestingController: HttpTestingController;
-  let httpClient: HttpClient ;
   let testUrl: string = "/api/login" ;
 
   beforeEach(() => {
@@ -21,7 +20,6 @@ describe('LogInService', () => {
     });
 
     httpTestingController = TestBed.inject(HttpTestingController);
-    httpClient = TestBed.inject(HttpClient);
     service = TestBed.inject(LogInService);
 
 
