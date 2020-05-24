@@ -16,6 +16,7 @@ export class ShowtimelinesComponent implements OnInit {
   pageNo: number = 0;
   pageSize: number = 10;
   noOfElements: number;
+  pageSizeOptions: number[] = [10, 20,50,100];
 
   constructor(private timelineService: TimelineService) { }
 

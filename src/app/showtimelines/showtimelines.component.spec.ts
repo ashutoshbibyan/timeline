@@ -5,6 +5,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowtimelinesComponent } from './showtimelines.component';
 import { Timeline } from '../models/timeline';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 
 describe('ShowtimelinesComponent', () => {
   let component: ShowtimelinesComponent;
@@ -28,7 +30,8 @@ describe('ShowtimelinesComponent', () => {
       declarations: [ ShowtimelinesComponent ],
       providers:[
         { provide: TimelineService , useValue: timelineServiceMock}
-      ]
+      ],
+      schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
@@ -78,6 +81,23 @@ describe('ShowtimelinesComponent', () => {
       expect(btnEdit.innerText).toEqual("Edit");
       expect(btnDelete.innerText).toEqual("Delete");
 
+    });
+
+    it('should show  one Mat Pagination Controls ' , () => {
+      let paginator: MatPaginator[] = elAll('mat-paginator');
+
+      expect(paginator).toBeTruthy();
+      expect(paginator.length).toBe(1);
+
+    });
+
+    it('should show the Mat Pagination Controls with right Value of pageno and size and noOfElements' , () => {
+      let paginator: MatPaginator = el('mat-paginator');
+
+      expect(paginator.pageIndex).toBe(component.pageNo);
+      expect(paginator.pageSize).toBe(component.pageSize);
+      expect(paginator.length).toBe(component.noOfElements);
+      expect(paginator.pageSizeOptions).toBe(component.pageSizeOptions);
     });
 
   });

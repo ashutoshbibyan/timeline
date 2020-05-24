@@ -14,6 +14,7 @@ import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
 import { UsersignupComponent } from './usersignup/usersignup.component';
 import { AddtimelineComponent } from './addtimeline/addtimeline.component';
 import { ShowtimelinesComponent } from './showtimelines/showtimelines.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ShowtimelinesComponent } from './showtimelines/showtimelines.component'
     BrowserAnimationsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
     ],
   providers: [],
   bootstrap: [AppComponent]
