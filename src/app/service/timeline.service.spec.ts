@@ -1,8 +1,11 @@
+import { of } from 'rxjs';
 import { Notification } from './../models/notification';
 import { HttpClientTestingModule  , HttpTestingController, TestRequest} from '@angular/common/http/testing';
 import { AddTimelineFormModel } from './../form-data-models/add-timeline-form-model';
 import { TestBed } from '@angular/core/testing';
 import { TimelineService } from '../service/timeline.service';
+import { Page } from '../models/page';
+import { Timeline } from '../models/timeline';
 
 describe('TimelineService', () => {
 
@@ -112,5 +115,70 @@ describe('TimelineService', () => {
 
 
   });
+
+  describe('Test the getTimelineList method for the rest api calls at /api/timeline/list' , () => {
+
+    let pageNo: number = 1 ;
+    let pageSize: number = 10 ;
+
+    let testUrl = `/api/timeline/list?pageNo=${pageNo}&pageSize=${pageSize}`;
+
+
+    it('should call the api for the list of timeline ' , () => {
+      service.getTimelineList(pageNo , pageSize).subscribe();
+
+      let req: TestRequest = httpTestingController.expectOne(testUrl);
+
+      expect(req).toBeTruthy();
+
+
+    });
+
+    it('should call the api for the list of timeline with testparam as the request param ' , () => {
+
+      service.getTimelineList(pageNo , pageSize ).subscribe();
+
+      let req: TestRequest = httpTestingController.expectOne(testUrl);
+
+      expect(req.request.params.get('pageNo')).toEqual(pageNo.toString());
+      expect(req.request.params.get('pageSize')).toEqual(pageSize.toString());
+
+    });
+
+
+    it('should call the api and get the mock request param  ' , () => {
+
+      service.getTimelineList(pageNo , pageSize ).subscribe();
+
+      let req: TestRequest = httpTestingController.expectOne(testUrl);
+
+      expect(req.request.params.get('pageNo')).toEqual(pageNo.toString());
+      expect(req.request.params.get('pageSize')).toEqual(pageSize.toString());
+
+    });
+
+    it('should get the Mock page object as response '  , () => {
+      let content: Timeline[] = [
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
+        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: new Date()}
+      ];
+
+      let mockResponse: Page = {pageNo: 1 ,pageSize: 10, noOfElements: 100 ,content ,  getContent() { return this.content ; } };
+
+      service.getTimelineList(pageNo,pageSize).subscribe((res)=>{
+        expect(res).toEqual(mockResponse);
+      });
+
+      let req: TestRequest = httpTestingController.expectOne(testUrl);
+
+      req.flush(mockResponse);
+
+    });
+
+
+
+
+  });
+
 
 });
