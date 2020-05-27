@@ -15,6 +15,7 @@ import { UsersignupComponent } from './usersignup/usersignup.component';
 import { AddtimelineComponent } from './addtimeline/addtimeline.component';
 import { ShowtimelinesComponent } from './showtimelines/showtimelines.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { EdittimelineComponent } from './edittimeline/edittimeline.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AddImpDateComponent,
     UsersignupComponent,
     AddtimelineComponent,
-    ShowtimelinesComponent
+    ShowtimelinesComponent,
+    EdittimelineComponent
   ],
   imports: [
     BrowserModule,

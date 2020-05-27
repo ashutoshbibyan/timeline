@@ -30,4 +30,12 @@ export class TimelineService {
 
     return this.httpClient.get<Page>("/api/timeline/list" , {headers: this.appJsonHeader , params});
   }
+
+  saveTimeline(timeline: Timeline): Observable<Notification>{
+    return null;
+  }
+
+  getTimeline(id: string): Observable<Timeline>{
+    return null;
+  }
 }
