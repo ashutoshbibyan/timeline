@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { ImpDateDisplayComponent } from './imp-date-display.component';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
+import * as moment from 'moment';
 
 describe('ImpDateDisplayComponent', () => {
   let component: ImpDateDisplayComponent;
@@ -38,8 +39,8 @@ describe('ImpDateDisplayComponent', () => {
 
       // mock the DateService to get the array of important dates
       let getImporantDateSpy = dateServiceMock.getImporantDate.and.returnValue(of([
-         {date: new Date() , title : 'start'},
-         {date: new Date() , title : 'start'}
+         {date: moment.now() , title : 'start'},
+         {date: moment.now() , title : 'start'}
       ]));
 
       // call the ngOnInit so it get the value of the important dates

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TimelineService } from './../service/timeline.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edittimeline',
@@ -29,14 +30,15 @@ export class EdittimelineComponent implements OnInit {
 
     this.timelineFormgroup = this.fb.group({
       timelineName: [this.timeline.timelineName],
-      startingDate: [this.timeline.startingDate.toISOString().slice(0, 10)], // slice the date into yyyy-mm-dd format for input field
+       // slice the date into yyyy-mm-dd format for input field
+      startingDate: [moment(this.timeline.startingDate).toISOString().slice(0, 10)],
       selectTimelineType: [this.timeline.timelineType]
     });
   }
 
   onSubmit(){
     this.timeline.timelineName = this.timelineFormgroup.controls['timelineName'].value;
-    this.timeline.startingDate = new Date(this.timelineFormgroup.controls['startingDate'].value);
+    this.timeline.startingDate = moment(this.timelineFormgroup.controls['startingDate'].value).valueOf();
     this.timeline.timelineType = this.timelineFormgroup.controls['selectTimelineType'].value;
 
     this.timelineService.saveTimeline(this.timeline);
