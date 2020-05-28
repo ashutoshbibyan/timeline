@@ -6,6 +6,7 @@ import { TestBed } from '@angular/core/testing';
 import { TimelineService } from '../service/timeline.service';
 import { Page } from '../models/page';
 import { Timeline } from '../models/timeline';
+import * as moment from 'moment';
 
 describe('TimelineService', () => {
 
@@ -159,8 +160,8 @@ describe('TimelineService', () => {
 
     it('should get the Mock page object as response '  , () => {
       let content: Timeline[] = [
-        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
-        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: new Date()}
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
+        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
       ];
 
       let mockResponse: Page = {pageNo: 1 ,pageSize: 10, noOfElements: 100 ,content ,  getContent() { return this.content ; } };

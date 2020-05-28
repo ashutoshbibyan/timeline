@@ -7,6 +7,7 @@ import { ShowtimelinesComponent } from './showtimelines.component';
 import { Timeline } from '../models/timeline';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import * as moment from 'moment';
 
 describe('ShowtimelinesComponent', () => {
   let component: ShowtimelinesComponent;
@@ -18,8 +19,8 @@ describe('ShowtimelinesComponent', () => {
   beforeEach(async(() => {
     timelineServiceMock = jasmine.createSpyObj<TimelineService> ("TimelineService" , ["getTimelineList"]);
     content = [
-      {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
-      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: new Date()}
+      {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
     ];
 
     mockResponse = {pageNo: 1 ,pageSize: 10 , noOfElements: 100 ,content,  getContent() { return this.content ; } };
@@ -59,7 +60,7 @@ describe('ShowtimelinesComponent', () => {
 
     it('should show the list of the timeline ' , () => {
 
-      component.timelineList = [{timelineName:"test name" , timelineType: "test type" , timelineId:"test id ", startingDate: new Date()}];
+      component.timelineList = [{timelineName:"test name" , timelineType: "test type" , timelineId:"test id ", startingDate: moment.now()}];
 
       fixture.detectChanges();
 
@@ -107,9 +108,9 @@ describe('ShowtimelinesComponent', () => {
     it('Should Show The List of the Timeline Using Components TimelineList Veriable' , () =>{
 
       component.timelineList = [
-        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
-        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: new Date()} ,
-        {timelineName: "timeline three " , timelineType: "tym typ" , timelineId:"id three " , startingDate: new Date()}
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " ,     startingDate: moment.now()} ,
+        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " ,     startingDate: moment.now()} ,
+        {timelineName: "timeline three " , timelineType: "tym typ" , timelineId:"id three " , startingDate: moment.now()}
       ];
 
       fixture.detectChanges();
@@ -148,7 +149,7 @@ describe('ShowtimelinesComponent', () => {
     it('When Delete Button is Clicked it should execute the deleteTimeline Method ' , () => {
 
       component.timelineList = [
-        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
 
       ];
 
@@ -171,8 +172,8 @@ describe('ShowtimelinesComponent', () => {
     it('When Delete Button is Clicked it should execute the deleteTimeline Method with timelineId as parameter' , () => {
 
       component.timelineList = [
-        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: new Date()} ,
-        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: new Date()}
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
+        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
       ];
 
       fixture.detectChanges();

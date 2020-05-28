@@ -7,6 +7,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Importantdate } from '../models/importantdate';
+import * as moment from 'moment';
 
 describe('DateService', () => {
   let service: DateService;
@@ -55,7 +56,8 @@ describe('DateService', () => {
     });
 
     it('should send the mockresponse back ' , () => {
-      let mockres: Importantdate [] = [{date: new Date() , title: "First"} , {date: new Date() , title: "second"}];
+      let mockres: Importantdate [] = [{date:moment.now() , title: "First"} ,
+                                       {date:moment.now() , title: "second"}];
       service.getImporantDate().subscribe((res) =>{
         expect(res).toEqual(mockres);
       });
@@ -73,7 +75,7 @@ describe('DateService', () => {
   describe('Test The addImpoortantDate for api calls at /api/pvt/impdate ' , () => {
 
     let testUrl = "/api/pvt/impdate";
-    let testParam: Importantdate = {date: new Date() , title: "test"};
+    let testParam: Importantdate = {date: moment.now() , title: "test"};
 
     it('should make the reqest to the api' , () => {
 

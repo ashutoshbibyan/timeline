@@ -1,5 +1,5 @@
 export interface Importantdate {
 
-  date: Date ;
+  date: number ;
   title: string ;
 }

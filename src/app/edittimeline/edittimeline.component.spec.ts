@@ -8,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EdittimelineComponent } from './edittimeline.component';
 import { TimelineService } from '../service/timeline.service';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from "moment";
 
 describe('EdittimelineComponent', () => {
   let component: EdittimelineComponent;
@@ -19,7 +20,7 @@ describe('EdittimelineComponent', () => {
   beforeEach(async(() => {
     timelineServiceMock = jasmine.createSpyObj<TimelineService>("TimelineService" , ["saveTimeline" , "getTimeline"]);
     acRouteStub = new ActivatedRouteStub({id : "0"});
-    timelineStubValue = {timelineName: "test Name " , timelineType: "test Type " , timelineId: "0" , startingDate: new Date()};
+    timelineStubValue = {timelineName: "test Name " , timelineType: "test Type " , timelineId: "0" , startingDate: moment.now()};
     // it is declared here so ngOnInit get the response
     getTimelineSpy = timelineServiceMock.getTimeline.and.returnValue(of(timelineStubValue));
 
@@ -82,7 +83,7 @@ describe('EdittimelineComponent', () => {
       expect(inputTimelineName.value).toEqual(component.timeline.timelineName);
 
       // slice the date into yyyy-mm-dd format for input field only need the date information
-      expect(inputStartingDate.value).toEqual(component.timeline.startingDate.toISOString().slice(0,10));
+      expect(inputStartingDate.value).toEqual(moment(component.timeline.startingDate).toISOString().slice(0,10));
 
 
       expect(selectTimelineType.value).toEqual(component.timeline.timelineType);
