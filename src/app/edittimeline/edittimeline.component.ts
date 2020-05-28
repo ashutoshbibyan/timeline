@@ -1,9 +1,10 @@
 import { Timeline } from './../models/timeline';
 import { ActivatedRoute } from '@angular/router';
 import { TimelineService } from './../service/timeline.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { notEmpty } from '../custom_validators/not-empty-validator';
 
 @Component({
   selector: 'app-edittimeline',
@@ -29,10 +30,10 @@ export class EdittimelineComponent implements OnInit {
     });
 
     this.timelineFormgroup = this.fb.group({
-      timelineName: [this.timeline.timelineName],
+      timelineName: [this.timeline.timelineName , [notEmpty()]],
        // slice the date into yyyy-mm-dd format for input field
-      startingDate: [moment(this.timeline.startingDate).toISOString().slice(0, 10)],
-      selectTimelineType: [this.timeline.timelineType]
+      startingDate: [moment(this.timeline.startingDate).toISOString().slice(0, 10) , [notEmpty()]],
+      selectTimelineType: [this.timeline.timelineType , [Validators.required]]
     });
   }
 
