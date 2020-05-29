@@ -9,6 +9,7 @@ import { EdittimelineComponent } from './edittimeline.component';
 import { TimelineService } from '../service/timeline.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from "moment";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('EdittimelineComponent', () => {
   let component: EdittimelineComponent;
@@ -17,6 +18,8 @@ describe('EdittimelineComponent', () => {
   let acRouteStub: ActivatedRouteStub ;
   let timelineStubValue: Timeline ;
   let getTimelineSpy ;
+  let matSnackBarMock: jasmine.SpyObj<MatSnackBar> ;
+
   beforeEach(async(() => {
     timelineServiceMock = jasmine.createSpyObj<TimelineService>("TimelineService" , ["saveTimeline" , "getTimeline"]);
     acRouteStub = new ActivatedRouteStub({id : "0"});
@@ -25,12 +28,14 @@ describe('EdittimelineComponent', () => {
     // it is declared here so ngOnInit get the response
     getTimelineSpy = timelineServiceMock.getTimeline.and.returnValue(of(timelineStubValue));
 
+    matSnackBarMock = jasmine.createSpyObj<MatSnackBar>("MatSnackBar" , ["open"]);
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ EdittimelineComponent ] ,
       providers:[
         { provide: TimelineService , useValue: timelineServiceMock},
-        { provide: ActivatedRoute  , useValue: acRouteStub}
+        { provide: ActivatedRoute  , useValue: acRouteStub},
+        { provide: MatSnackBar , useValue: matSnackBarMock}
       ]
     })
     .compileComponents();
@@ -84,7 +89,7 @@ describe('EdittimelineComponent', () => {
       expect(inputTimelineName.value).toEqual(component.timeline.timelineName);
 
       // slice the date into yyyy-mm-dd format for input field only need the date information
-      expect(inputStartingDate.value).toEqual(moment(component.timeline.startingDate).toISOString().slice(0,10));
+      expect(inputStartingDate.value).toEqual(moment(component.timeline.startingDate).format("YYYY-MM-DD"));
 
 
       expect(selectTimelineType.value).toEqual(component.timeline.timelineType);
@@ -196,8 +201,9 @@ describe('EdittimelineComponent', () => {
 
     it('OnSubmit method should call the timeline service Save timeline method ' , () => {
 
+      let notification: Notification = {successStatus: true , errorStatus: false , notificationMsg: "Timeline is updated"};
 
-      let saveTimelineSpy = timelineServiceMock.saveTimeline;
+      let saveTimelineSpy = timelineServiceMock.saveTimeline.and.returnValue(of(notification));
 
       component.onSubmit();
 
@@ -207,6 +213,7 @@ describe('EdittimelineComponent', () => {
     });
 
     it('should call the saveTimeline method with the value of the form field ' , () => {
+      let notification: Notification = {successStatus: true , errorStatus: false , notificationMsg: "Timeline is updated"};
 
       let timelineStub2: Timeline = {timelineName:"name", timelineId:"0" , timelineType: "typ" ,
       startingDate: moment().startOf("day").valueOf()};
@@ -230,7 +237,7 @@ describe('EdittimelineComponent', () => {
 
       fixture.detectChanges();
 
-      let saveTimelineSpy = timelineServiceMock.saveTimeline;
+      let saveTimelineSpy = timelineServiceMock.saveTimeline.and.returnValue(of(notification));
 
       component.onSubmit();
 
@@ -238,10 +245,24 @@ describe('EdittimelineComponent', () => {
 
     });
 
+    it('should show the notification when timeline is updated ' , () =>{
+
+      let notification: Notification = {successStatus: true , errorStatus: false , notificationMsg: "Timeline is updated"};
+
+      let saveTimelineSpy = timelineServiceMock.saveTimeline.and.returnValue(of(notification));
+
+      component.onSubmit();
+
+      let snackbarOpenSpy = matSnackBarMock.open;
+
+      expect(snackbarOpenSpy).toHaveBeenCalled();
+
+    });
+
 
   });
 
-  fdescribe('EditTimeline form Validation' , () => {
+  describe('EditTimeline form Validation' , () => {
 
     describe('TimelineName input field ' , () => {
 

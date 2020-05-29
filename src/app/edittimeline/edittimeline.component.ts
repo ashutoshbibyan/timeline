@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Timeline } from './../models/timeline';
 import { ActivatedRoute } from '@angular/router';
 import { TimelineService } from './../service/timeline.service';
@@ -17,7 +18,8 @@ export class EdittimelineComponent implements OnInit {
   timelineTypes: string[] = [];
   timelineFormgroup: FormGroup;
 
-  constructor(private fb: FormBuilder , private timelineService: TimelineService , private acroute: ActivatedRoute) { }
+  constructor(private fb: FormBuilder , private timelineService: TimelineService , private acroute: ActivatedRoute
+    , private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -32,7 +34,7 @@ export class EdittimelineComponent implements OnInit {
     this.timelineFormgroup = this.fb.group({
       timelineName: [this.timeline.timelineName , [notEmpty()]],
        // slice the date into yyyy-mm-dd format for input field
-      startingDate: [moment(this.timeline.startingDate).toISOString().slice(0, 10) , [notEmpty()]],
+      startingDate: [moment(this.timeline.startingDate).format("YYYY-MM-DD") , [notEmpty()]],
       selectTimelineType: [this.timeline.timelineType , [Validators.required]]
     });
   }
@@ -42,7 +44,16 @@ export class EdittimelineComponent implements OnInit {
     this.timeline.startingDate = moment(this.timelineFormgroup.controls['startingDate'].value).valueOf();
     this.timeline.timelineType = this.timelineFormgroup.controls['selectTimelineType'].value;
 
-    this.timelineService.saveTimeline(this.timeline);
+    this.timelineService.saveTimeline(this.timeline).subscribe((res) =>{
+
+      if(res.successStatus){
+        this.matSnackBar.open(res.notificationMsg , "Updated");
+      }
+      else if(res.errorStatus){
+        this.matSnackBar.open(res.notificationMsg , "Error");
+      }
+
+    });
   }
 
 }
