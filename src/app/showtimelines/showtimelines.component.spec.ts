@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Notification } from './../models/notification';
 import { Page } from './../models/page';
 import { of } from 'rxjs';
 import { TimelineService } from './../service/timeline.service';
@@ -8,6 +10,7 @@ import { Timeline } from '../models/timeline';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 describe('ShowtimelinesComponent', () => {
   let component: ShowtimelinesComponent;
@@ -16,8 +19,11 @@ describe('ShowtimelinesComponent', () => {
   let content: Timeline[] ;
   let mockResponse: Page ;
   let getTimelineListMock ;
+  let matSnackBarMock: jasmine.SpyObj<MatSnackBar>;
+  let routerMock: jasmine.SpyObj<Router>;
+
   beforeEach(async(() => {
-    timelineServiceMock = jasmine.createSpyObj<TimelineService> ("TimelineService" , ["getTimelineList"]);
+    timelineServiceMock = jasmine.createSpyObj<TimelineService> ("TimelineService" , ["getTimelineList" , "deleteTimeline"]);
     content = [
       {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
       {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
@@ -27,10 +33,16 @@ describe('ShowtimelinesComponent', () => {
 
     getTimelineListMock = timelineServiceMock.getTimelineList.and.returnValue(of(mockResponse));
 
+    matSnackBarMock = jasmine.createSpyObj<MatSnackBar>("MatSnackBar" , ["open"]);
+
+    routerMock = jasmine.createSpyObj<Router>("Router"  ,["navigateByUrl"])
+
     TestBed.configureTestingModule({
       declarations: [ ShowtimelinesComponent ],
       providers:[
-        { provide: TimelineService , useValue: timelineServiceMock}
+        { provide: TimelineService , useValue: timelineServiceMock},
+        { provide: MatSnackBar , useValue: matSnackBarMock},
+        { provide: Router , useValue: routerMock}
       ],
       schemas:[NO_ERRORS_SCHEMA]
     })
@@ -193,6 +205,95 @@ describe('ShowtimelinesComponent', () => {
 
     });
 
+    it("when deleteTimeline Method is called timeline service delete timeline method is called " , () => {
+
+      let notification: Notification = { successStatus: true , errorStatus: false , notificationMsg: "Timeline is Deleted " } ;
+
+      let timelineId: string = "0";
+
+      let deleteTimelineSpy = timelineServiceMock.deleteTimeline.and.returnValue(of(notification));
+
+      component.deleteTimeline(timelineId);
+
+      expect(deleteTimelineSpy).toHaveBeenCalledTimes(1);
+      expect(deleteTimelineSpy).toHaveBeenCalledWith(timelineId);
+
+    });
+
+
+    it('when timeline is deleted it should show the notification with success msg' , () => {
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      let notification: Notification = { successStatus: true , errorStatus: false , notificationMsg: "Timeline is Deleted " } ;
+
+      let deleteTimelineSpy = timelineServiceMock.deleteTimeline.and.returnValue(of(notification));
+
+      let timelineId: string = "0";
+
+      component.deleteTimeline(timelineId);
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalledTimes(1);
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notification.notificationMsg , "Success");
+
+
+    });
+
+    it('when timeline is not deleted it should show the error msg ' , () =>{
+
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      let notification: Notification = { successStatus: false , errorStatus: true , notificationMsg: "Something Went Wrong" } ;
+
+      let deleteTimelineSpy = timelineServiceMock.deleteTimeline.and.returnValue(of(notification));
+
+      let timelineId: string = "0";
+
+      component.deleteTimeline(timelineId);
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalledTimes(1);
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notification.notificationMsg , "Error");
+
+
+    });
+
+
+    it('when edit button is clicked it should call the editTimeline Method ' , () =>{
+
+      component.timelineList = [
+        {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
+        {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
+      ];
+
+      fixture.detectChanges();
+
+      let editTimelineSpy = spyOn (component, 'editTimeline');
+
+      let btnEdit: HTMLButtonElement[] = elAll('[data-test="btn-edit"]');
+
+      btnEdit.forEach((btn , index) =>{
+
+        btn.click();
+        expect(editTimelineSpy).toHaveBeenCalledWith(component.timelineList[index].timelineId);
+
+      });
+
+      expect(editTimelineSpy).toHaveBeenCalledTimes(2);
+
+    });
+
+    it('when editTimeline Method is executed it should navigate to the /timeline/edit/:id ' , () => {
+
+      let navigateToSpy = routerMock.navigateByUrl;
+
+      component.editTimeline("0");
+
+      expect(navigateToSpy).toHaveBeenCalledTimes(1);
+
+      expect(navigateToSpy).toHaveBeenCalledWith("/timeline/edit/0");
+
+    });
 
 
 

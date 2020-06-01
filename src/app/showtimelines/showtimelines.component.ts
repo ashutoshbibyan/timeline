@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TimelineService } from './../service/timeline.service';
 import { Component, OnInit } from '@angular/core';
 import {Timeline} from '../models/timeline';
@@ -18,7 +20,7 @@ export class ShowtimelinesComponent implements OnInit {
   noOfElements: number;
   pageSizeOptions: number[] = [10, 20,50,100];
 
-  constructor(private timelineService: TimelineService) { }
+  constructor(private timelineService: TimelineService , private matSnackBar: MatSnackBar , private router: Router) { }
 
   ngOnInit(): void {
     this.initData();
@@ -36,7 +38,21 @@ export class ShowtimelinesComponent implements OnInit {
 
   deleteTimeline(timelineId: string){
 
+    this.timelineService.deleteTimeline(timelineId).subscribe((res) => {
+      if(res.successStatus){
+        this.matSnackBar.open(res.notificationMsg , "Success");
+      }
+      else if (res.errorStatus){
+        this.matSnackBar.open(res.notificationMsg , "Error");
+      }
+    });
 
+  }
+
+  editTimeline(timelineId: string){
+
+    let url = `/timeline/edit/${timelineId}`;
+    this.router.navigateByUrl(url);
   }
 
 }

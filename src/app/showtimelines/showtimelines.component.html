@@ -5,7 +5,7 @@
   <h2 data-test="timeline-name">{{timeline.timelineName}}</h2>
   <h3 data-test="timeline-type">{{timeline.timelineType}} </h3>
 
-  <button data-test="btn-edit">Edit</button>
+  <button data-test="btn-edit"  (click)="editTimeline(timeline.timelineId)">Edit</button>
   <button data-test="btn-delete" (click)="deleteTimeline(timeline.timelineId)">Delete</button>
 
 

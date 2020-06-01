@@ -38,4 +38,12 @@ export class TimelineService {
   getTimeline(id: string): Observable<Timeline>{
     return null;
   }
+
+  deleteTimeline(id: string): Observable<Notification>{
+    return null;
+  }
+
+
+
+
 }
