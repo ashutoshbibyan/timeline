@@ -1,0 +1,9 @@
+<p>showimpdates works!</p>
+
+<div *ngFor = "let impdate of impDates | async">
+
+  <h3 data-test="imp-date">{{impdate.date}}</h3>
+  <h5 data-test="imp-date-title">{{impdate.title}}</h5>
+  <button data-test="btn-edit" (click)="edit(impdate.impdateId)">Edit</button>
+  <button data-test="btn-delete" (click)="delete(impdate.impdateId)">Delete</button>
+</div>

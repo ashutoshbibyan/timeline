@@ -30,13 +30,13 @@ describe('DateService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('Test The getImporantDate for api calls at /api/pvt/impdates ' , () => {
+  describe('Test The getImportantDates for api calls at /api/pvt/impdates ' , () => {
 
     let testUrl = "/api/pvt/impdates";
 
     it('should make the reqest to the api' , () => {
 
-      service.getImporantDate().subscribe();
+      service.getImportantDates().subscribe();
 
       let req = httpTestingController.expectOne(testUrl);
 
@@ -47,7 +47,7 @@ describe('DateService', () => {
 
     it('should make the reqest to the api with get method ' , () => {
 
-      service.getImporantDate().subscribe();
+      service.getImportantDates().subscribe();
 
       let req = httpTestingController.expectOne(testUrl);
 
@@ -56,9 +56,9 @@ describe('DateService', () => {
     });
 
     it('should send the mockresponse back ' , () => {
-      let mockres: Importantdate [] = [{date:moment.now() , title: "First"} ,
-                                       {date:moment.now() , title: "second"}];
-      service.getImporantDate().subscribe((res) =>{
+      let mockres: Importantdate [] = [{date:moment.now() , title: "First" , impdateId:"impId" , timelineId: "timelineid"} ,
+                                       {date:moment.now() , title: "second" , impdateId:"impid" , timelineId: "timelineId"}];
+      service.getImportantDates().subscribe((res) =>{
         expect(res).toEqual(mockres);
       });
 
@@ -75,7 +75,7 @@ describe('DateService', () => {
   describe('Test The addImpoortantDate for api calls at /api/pvt/impdate ' , () => {
 
     let testUrl = "/api/pvt/impdate";
-    let testParam: Importantdate = {date: moment.now() , title: "test"};
+    let testParam: Importantdate = {date: moment.now() , title: "test" , impdateId:"impId" , timelineId: "timelineid"};
 
     it('should make the reqest to the api' , () => {
 

@@ -8,7 +8,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule } from '@angular/forms';
-import { ImpDateDisplayComponent } from './imp-date-display/imp-date-display.component';
 import {HttpClientModule} from "@angular/common/http";
 import { AddImpDateComponent } from './add-imp-date/add-imp-date.component';
 import { UsersignupComponent } from './usersignup/usersignup.component';
@@ -16,18 +15,19 @@ import { AddtimelineComponent } from './addtimeline/addtimeline.component';
 import { ShowtimelinesComponent } from './showtimelines/showtimelines.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { EdittimelineComponent } from './edittimeline/edittimeline.component';
+import { ShowimpdatesComponent } from './showimpdates/showimpdates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    ImpDateDisplayComponent,
     AddImpDateComponent,
     UsersignupComponent,
     AddtimelineComponent,
     ShowtimelinesComponent,
-    EdittimelineComponent
+    EdittimelineComponent,
+    ShowimpdatesComponent
   ],
   imports: [
     BrowserModule,

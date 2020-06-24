@@ -33,7 +33,7 @@ export class AddImpDateComponent implements OnInit {
      const date = this.formGroupAddImpDate.controls['impdate'].value;
      const title = this.formGroupAddImpDate.controls['imptitle'].value;
 
-     const impDate: Importantdate = {date: date , title: title} ;
+     const impDate: Importantdate = {date: date , title: title , impdateId:"impId" , timelineId: "timelineid"} ;
      this.dateService.addImpDate(impDate).subscribe((notification) =>{
        this.notification = notification ;
      });
