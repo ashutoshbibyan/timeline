@@ -1,0 +1,10 @@
+<p>edit-imp-date works!</p>
+<form [formGroup] = "editFormGroup">
+
+<input type="date" data-test="input-date" placeholder="Date" formControlName="dateControl">
+<input type="text" data-test="input-title" placeholder="Title" formControlName="titleControl">
+<button data-test="btn-submit" [disabled]="editFormGroup.invalid">Save</button>
+
+
+
+</form>

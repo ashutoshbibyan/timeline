@@ -16,6 +16,7 @@ import { ShowtimelinesComponent } from './showtimelines/showtimelines.component'
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { EdittimelineComponent } from './edittimeline/edittimeline.component';
 import { ShowimpdatesComponent } from './showimpdates/showimpdates.component';
+import { EditImpDateComponent } from './edit-imp-date/edit-imp-date.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ShowimpdatesComponent } from './showimpdates/showimpdates.component';
     AddtimelineComponent,
     ShowtimelinesComponent,
     EdittimelineComponent,
-    ShowimpdatesComponent
+    ShowimpdatesComponent,
+    EditImpDateComponent
   ],
   imports: [
     BrowserModule,
