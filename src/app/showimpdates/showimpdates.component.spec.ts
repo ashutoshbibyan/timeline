@@ -1,3 +1,4 @@
+import { Notification } from './../models/notification';
 import { element } from 'protractor';
 import { Importantdate } from './../models/importantdate';
 import { of } from 'rxjs';
@@ -6,18 +7,26 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowimpdatesComponent } from './showimpdates.component';
 import { DateService } from '../service/date.service';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
-describe('ShowimpdatesComponent', () => {
+fdescribe('ShowimpdatesComponent', () => {
   let component: ShowimpdatesComponent;
   let fixture: ComponentFixture<ShowimpdatesComponent>;
   let dateServiceMock: jasmine.SpyObj<DateService> ;
+  let matSnackBarMock: jasmine.SpyObj<MatSnackBar>;
+  let routerMock: jasmine.SpyObj<Router>;
 
   beforeEach(async(() => {
-    dateServiceMock = jasmine.createSpyObj<DateService>("DateService" , ["getImportantDates"]);
+    dateServiceMock = jasmine.createSpyObj<DateService>("DateService" , ["getImportantDates" , 'deleteImpDate']);
+    matSnackBarMock = jasmine.createSpyObj<MatSnackBar>('MatSnackBar',['open']);
+    routerMock = jasmine.createSpyObj<Router>('Router', ['navigateByUrl']);
     TestBed.configureTestingModule({
       declarations: [ ShowimpdatesComponent ],
       providers:[
-        {provide: DateService , useValue: dateServiceMock}
+        {provide: DateService , useValue: dateServiceMock},
+        {provide: MatSnackBar , useValue: matSnackBarMock},
+        {provide: Router , useValue: routerMock}
       ]
     })
     .compileComponents();
@@ -145,6 +154,69 @@ describe('ShowimpdatesComponent', () => {
 
         expect(editSpy).toHaveBeenCalledTimes(btnEdit.length);
       });
+    });
+
+    it('should call the date service delete imp date method with impDateId ' , () =>{
+      let impDateId = '1';
+
+      let notificationStub: Notification = {successStatus: true , errorStatus: false , notificationMsg: 'imp date is deleted '};
+
+      let deleteImpDateSpy = dateServiceMock.deleteImpDate.and.returnValue(of(notificationStub));
+
+      fixture.detectChanges();
+
+      component.delete(impDateId);
+
+      expect(deleteImpDateSpy).toHaveBeenCalledTimes(1);
+      expect(deleteImpDateSpy).toHaveBeenCalledWith(impDateId);
+
+    });
+
+    it('should show the success msg when impdate is deleted  ' , () =>{
+      let impDateId = '1';
+
+      let notificationStub: Notification = {successStatus: true , errorStatus: false , notificationMsg: 'imp date is deleted '};
+
+      let deleteImpDateSpy = dateServiceMock.deleteImpDate.and.returnValue(of(notificationStub));
+
+      fixture.detectChanges();
+
+      component.delete(impDateId);
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalledTimes(1);
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notificationStub.notificationMsg , 'Success');
+
+    });
+
+    it('should show the error msg when there is an error  ' , () =>{
+      let impDateId = '1';
+
+      let notificationStub: Notification = {successStatus: false , errorStatus: true , notificationMsg: 'something went wrong while deleteing impdate  '};
+
+      let deleteImpDateSpy = dateServiceMock.deleteImpDate.and.returnValue(of(notificationStub));
+
+      fixture.detectChanges();
+
+      component.delete(impDateId);
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalledTimes(1);
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notificationStub.notificationMsg , 'Error');
+
+    });
+
+    it('should call the naviagte by url method when edit button is clickec' , () =>{
+      let impDateId = '1';
+
+      let navigateByUrlSpy = routerMock.navigateByUrl;
+
+      component.edit(impDateId);
+
+      expect(navigateByUrlSpy).toHaveBeenCalledTimes(1);
+      expect(navigateByUrlSpy).toHaveBeenCalledWith(`/impdate/edit/${impDateId}`);
     });
 
 
