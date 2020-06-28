@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DateService } from './../service/date.service';
@@ -20,7 +21,8 @@ export class EditImpDateComponent implements OnInit {
 
   impDate: Importantdate;
 
-  constructor(private fb: FormBuilder , private dateService: DateService , private acRoute: ActivatedRoute) { }
+  constructor(private fb: FormBuilder , private dateService: DateService
+    , private acRoute: ActivatedRoute , private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -46,7 +48,14 @@ export class EditImpDateComponent implements OnInit {
     this.impDate.date = moment(this.editFormGroup.controls['dateControl'].value).valueOf();
     this.impDate.title = this.editFormGroup.controls['titleControl'].value;
 
-    this.dateService.updateImpDate(this.impDate);
+    this.dateService.updateImpDate(this.impDate).subscribe((res) => {
+      if(res.successStatus){
+        this.matSnackBar.open(res.notificationMsg , 'Success');
+      }
+      else if (res.errorStatus){
+        this.matSnackBar.open(res.notificationMsg , 'Error');
+      }
+    });
 
   }
 

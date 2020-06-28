@@ -9,15 +9,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditImpDateComponent } from './edit-imp-date.component';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-fdescribe('EditImpDateComponent', () => {
+describe('EditImpDateComponent', () => {
   let component: EditImpDateComponent;
   let fixture: ComponentFixture<EditImpDateComponent>;
   let dateServiceMock: jasmine.SpyObj<DateService>;
   let acRouteStub: ActivatedRouteStub;
   let getImportantDateSpy: jasmine.Spy;
   let impDateStub: Importantdate ;
-
+  let matSnackBarMock: jasmine.SpyObj<MatSnackBar>;
 
 
   beforeEach(async(() => {
@@ -25,13 +26,14 @@ fdescribe('EditImpDateComponent', () => {
     acRouteStub = new ActivatedRouteStub({ id: '1'});
     dateServiceMock = jasmine.createSpyObj<DateService>('DateService' ,['updateImpDate' , 'getImportantDate']);
     getImportantDateSpy = dateServiceMock.getImportantDate.and.returnValue(of(impDateStub));
-
+    matSnackBarMock = jasmine.createSpyObj<MatSnackBar>('MatSnackBar' , ['open']);
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ EditImpDateComponent ],
       providers:[
         {provide: DateService , useValue: dateServiceMock},
-        {provide: ActivatedRoute , useValue: acRouteStub}
+        {provide: ActivatedRoute , useValue: acRouteStub},
+        {provide: MatSnackBar , useValue: matSnackBarMock}
 
       ]
     })
@@ -276,6 +278,55 @@ fdescribe('EditImpDateComponent', () => {
       component.onSubmit();
 
       expect(updateImpDateSpy).toHaveBeenCalledWith(impDateStub);
+
+    });
+
+
+    it('should show the Success notification with correct msg   ' , () =>{
+
+
+      inputDate.value = dateStubValue ;
+      inputTitle.value = titleStubValue ;
+
+      inputDate.dispatchEvent(inputEvent);
+      inputTitle.dispatchEvent(inputEvent);
+
+      fixture.detectChanges();
+
+      let notificationStub: Notification = {successStatus: true , errorStatus: false , notificationMsg: 'Important Date is updated '};
+
+      let updateImpDateSpy = dateServiceMock.updateImpDate.and.returnValue(of(notificationStub));
+
+      component.onSubmit();
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalled();
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notificationStub.notificationMsg , 'Success');
+
+    });
+
+    it('should show the Error notification with correct msg   ' , () =>{
+
+
+      inputDate.value = dateStubValue ;
+      inputTitle.value = titleStubValue ;
+
+      inputDate.dispatchEvent(inputEvent);
+      inputTitle.dispatchEvent(inputEvent);
+
+      fixture.detectChanges();
+
+      let notificationStub: Notification = {successStatus: false , errorStatus: true , notificationMsg: 'Error Happened While updateing'};
+
+      let updateImpDateSpy = dateServiceMock.updateImpDate.and.returnValue(of(notificationStub));
+
+      component.onSubmit();
+
+      let matSnackBarOpenSpy = matSnackBarMock.open;
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalled();
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(notificationStub.notificationMsg , 'Error');
 
     });
 
