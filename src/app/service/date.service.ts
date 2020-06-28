@@ -11,6 +11,10 @@ export class DateService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getImportantDate(impDateId: string): Observable<Importantdate>{
+    return null ;
+  }
+
   getImportantDates(): Observable<Importantdate[]>{
 
     return this.httpClient.get<Importantdate[]>('/api/pvt/impdates');
@@ -22,6 +26,11 @@ export class DateService {
     return this.httpClient.post<Notification>('/api/pvt/impdate' , impDate);
 
 
+  }
+
+  updateImpDate(impDate: Importantdate) : Observable<Notification>{
+
+    return null;
   }
 
 }

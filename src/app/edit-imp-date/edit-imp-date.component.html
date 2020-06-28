@@ -1,5 +1,5 @@
 <p>edit-imp-date works!</p>
-<form [formGroup] = "editFormGroup">
+<form [formGroup] = "editFormGroup" (ngSubmit)="onSubmit()" >
 
 <input type="date" data-test="input-date" placeholder="Date" formControlName="dateControl">
 <input type="text" data-test="input-title" placeholder="Title" formControlName="titleControl">

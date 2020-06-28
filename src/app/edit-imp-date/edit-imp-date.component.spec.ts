@@ -1,17 +1,37 @@
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from './../../testing/activated.route';
+import { Importantdate } from './../models/importantdate';
+import { of } from 'rxjs';
+import { Notification } from './../models/notification';
+import { DateService } from './../service/date.service';
 import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditImpDateComponent } from './edit-imp-date.component';
+import * as moment from 'moment';
 
 fdescribe('EditImpDateComponent', () => {
   let component: EditImpDateComponent;
   let fixture: ComponentFixture<EditImpDateComponent>;
+  let dateServiceMock: jasmine.SpyObj<DateService>;
+  let acRouteStub: ActivatedRouteStub;
+  let getImportantDateSpy: jasmine.Spy;
+  let impDateStub: Importantdate ;
+
+
 
   beforeEach(async(() => {
+    impDateStub = {impdateId:"test id " , timelineId: 'timeline test id ' , date: moment.now() , title:'test title'};
+    acRouteStub = new ActivatedRouteStub({ id: '1'});
+    dateServiceMock = jasmine.createSpyObj<DateService>('DateService' ,['updateImpDate' , 'getImportantDate']);
+    getImportantDateSpy = dateServiceMock.getImportantDate.and.returnValue(of(impDateStub));
+
     TestBed.configureTestingModule({
       imports:[ReactiveFormsModule],
       declarations: [ EditImpDateComponent ],
       providers:[
+        {provide: DateService , useValue: dateServiceMock},
+        {provide: ActivatedRoute , useValue: acRouteStub}
 
       ]
     })
@@ -50,6 +70,21 @@ fdescribe('EditImpDateComponent', () => {
 
     });
 
+    it('should get the value of the impdate id from the acroute ' , () => {
+
+      expect(component.impDateId).toBe('1');
+    });
+
+    it('should get the important date object using the impDate id ' , () => {
+
+      expect(getImportantDateSpy).toHaveBeenCalled();
+
+      expect(getImportantDateSpy).toHaveBeenCalledWith(component.impDateId);
+
+      expect(component.impDate).toEqual(impDateStub);
+    });
+
+
   });
 
   describe('Component Functionality' , () => {
@@ -62,6 +97,7 @@ fdescribe('EditImpDateComponent', () => {
     let dateStubValue: string;
     let titleStubValue: string;
 
+
     beforeEach(() => {
       inputDate = el('[data-test="input-date"]');
       inputTitle = el('[data-test="input-title"]');
@@ -70,7 +106,6 @@ fdescribe('EditImpDateComponent', () => {
       inputEvent = new Event('input');
       dateStubValue = '2020-02-20';
       titleStubValue = 'test title';
-
     });
 
     it('should have the value in the form control ' , () => {
@@ -186,6 +221,71 @@ fdescribe('EditImpDateComponent', () => {
       expect(btnSubmit.disabled).toBe(false);
 
     });
+
+
+    it('should call the onSubmit method when save button is called ' , () =>{
+
+      inputDate.value = dateStubValue;
+      inputTitle.value = titleStubValue;
+
+      inputDate.dispatchEvent(inputEvent);
+      inputTitle.dispatchEvent(inputEvent);
+
+      fixture.detectChanges();
+
+      let submitMethodSpy = spyOn(component, 'onSubmit');
+
+      let btnSubmit: HTMLButtonElement = el('[data-test="btn-submit"]');
+
+      btnSubmit.click();
+
+      expect(submitMethodSpy).toHaveBeenCalled();
+
+    });
+
+    it('should call the updateImpDate method of the dateService when onSubmit is executed  ' , () =>{
+
+      let notificationStub: Notification = {successStatus: true , errorStatus: false , notificationMsg: 'test notification msg'};
+
+      let updateImpDateSpy = dateServiceMock.updateImpDate.and.returnValue(of(notificationStub));
+
+
+      component.onSubmit();
+
+      expect(updateImpDateSpy).toHaveBeenCalled();
+
+    });
+
+
+    it('should call the updateImpDate method of the dateService with the impdate object with new date and title value  ' , () =>{
+
+
+      inputDate.value = dateStubValue ;
+      inputTitle.value = titleStubValue ;
+
+      inputDate.dispatchEvent(inputEvent);
+      inputTitle.dispatchEvent(inputEvent);
+
+      fixture.detectChanges();
+
+      let notificationStub: Notification = {successStatus: true , errorStatus: false , notificationMsg: 'test notification msg'};
+
+      let updateImpDateSpy = dateServiceMock.updateImpDate.and.returnValue(of(notificationStub));
+
+
+      component.onSubmit();
+
+      expect(updateImpDateSpy).toHaveBeenCalledWith(impDateStub);
+
+    });
+
+    it('form controls should have the value from the component impDate object ' , () => {
+
+      expect(dateControl.value).toEqual(moment(impDateStub.date).format('YYYY-MM-DD'));
+      expect(titleControl.value).toEqual(impDateStub.title);
+
+    });
+
 
 
 
