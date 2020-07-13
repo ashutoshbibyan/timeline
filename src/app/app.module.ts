@@ -17,6 +17,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { EdittimelineComponent } from './edittimeline/edittimeline.component';
 import { ShowimpdatesComponent } from './showimpdates/showimpdates.component';
 import { EditImpDateComponent } from './edit-imp-date/edit-imp-date.component';
+import { AddwhtsappchatComponent } from './addwhtsappchat/addwhtsappchat.component';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // for the validation of the reactive forms
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { EditImpDateComponent } from './edit-imp-date/edit-imp-date.component';
     ShowtimelinesComponent,
     EdittimelineComponent,
     ShowimpdatesComponent,
-    EditImpDateComponent
+    EditImpDateComponent,
+    AddwhtsappchatComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import { EditImpDateComponent } from './edit-imp-date/edit-imp-date.component';
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    RxReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

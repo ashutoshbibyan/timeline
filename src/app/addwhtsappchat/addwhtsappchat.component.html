@@ -1,0 +1,13 @@
+<p>addwhtsappchat works!</p>
+
+<form [formGroup] = "whtsappChatForm" (ngSubmit)="onSubmit()" >
+
+<input type="text"  placeholder="Chat Title" data-test="input-chat-title" formControlName="chatTitle">
+<input type="date"  placeholder="Chat Date"  data-test="input-chat-date"  formControlName="chatDate">
+<input type="file"  placeholder="Chat file"  data-test="input-chat-file" (change)="updateFile($event.target.files)" formControlName='chatFile' accept=".txt">
+<button data-test="btn-submit" [disabled] = "whtsappChatForm.invalid" type="submit"> Submit</button>
+
+
+
+</form>
+
