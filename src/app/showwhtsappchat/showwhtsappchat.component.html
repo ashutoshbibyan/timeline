@@ -1,0 +1,11 @@
+<p>showwhtsappchat works!</p>
+
+
+<div *ngFor= " let chat of whtsAppChat | async">
+
+  <h5 data-test = 'date'>    {{chat.date | date}}    </h5>
+  <h6 data-test = 'time'>    {{chat.time}}     </h6>
+  <h3 data-test = 'sender'>  {{chat.sender}}   </h3>
+  <h2 data-test = 'message'> {{chat.message}}  </h2>
+
+</div>

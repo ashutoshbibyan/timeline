@@ -11,7 +11,7 @@ import { AddwhtsappchatComponent } from './addwhtsappchat.component';
 import * as moment from 'moment' ;
 import { WhtsappchatService } from '../service/whtsappchat.service';
 
-fdescribe('AddwhtsappchatComponent', () => {
+describe('AddwhtsappchatComponent', () => {
   let component: AddwhtsappchatComponent;
   let fixture: ComponentFixture<AddwhtsappchatComponent>;
 

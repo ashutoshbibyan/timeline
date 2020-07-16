@@ -18,7 +18,8 @@ import { EdittimelineComponent } from './edittimeline/edittimeline.component';
 import { ShowimpdatesComponent } from './showimpdates/showimpdates.component';
 import { EditImpDateComponent } from './edit-imp-date/edit-imp-date.component';
 import { AddwhtsappchatComponent } from './addwhtsappchat/addwhtsappchat.component';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // for the validation of the reactive forms
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { ShowwhtsappchatComponent } from './showwhtsappchat/showwhtsappchat.component'; // for the validation of the reactive forms
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // for 
     EdittimelineComponent,
     ShowimpdatesComponent,
     EditImpDateComponent,
-    AddwhtsappchatComponent
+    AddwhtsappchatComponent,
+    ShowwhtsappchatComponent
   ],
   imports: [
     BrowserModule,
