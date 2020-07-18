@@ -1,0 +1,10 @@
+<p>showallchats works!</p>
+
+<div *ngFor="let chat of chats |async" >
+
+  <h4 data-test='chat-title'> {{chat.chatTitle}} </h4>
+  <h5 data-test='chat-date'> {{chat.chatDate | date}} </h5>
+  <button data-test='btn-edit' (click)="edit(chat.chatId)">Edit</button>
+  <button data-test='btn-delete' (click)="delete(chat.chatId)">Delete</button>
+
+</div>

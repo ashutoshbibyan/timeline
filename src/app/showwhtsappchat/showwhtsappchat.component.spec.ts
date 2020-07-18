@@ -8,7 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowwhtsappchatComponent } from './showwhtsappchat.component';
 import * as moment from 'moment';
 
-fdescribe('ShowwhtsappchatComponent', () => {
+describe('ShowwhtsappchatComponent', () => {
   let component: ShowwhtsappchatComponent;
   let fixture: ComponentFixture<ShowwhtsappchatComponent>;
 
