@@ -4,6 +4,9 @@ import { DateService } from './../service/date.service';
 import { Observable } from 'rxjs';
 import { Importantdate } from './../models/importantdate';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { of } from 'rxjs';
+
 
 @Component({
   selector: 'app-showimpdates',
@@ -19,7 +22,21 @@ export class ShowimpdatesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.impDates = this.dateService.getImportantDates();
+   // this.impDates = this.dateService.getImportantDates();
+
+   this.impDates =  of(
+    [{impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"}
+    ,{impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"} ,
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"},
+    {impdateId: "test id " , timelineId:"test timeline", date: moment.now() , title:"Test Title"}]
+  );
   }
 
   delete(impdateId: string){

@@ -1,0 +1,18 @@
+<p>timeline-view works!</p>
+
+
+<div class="container ">
+
+    <div class="d-flex w-75 justify-content-between flex-wrap">
+
+        <div class="w-50"  *ngFor="let impdate of impDates | async ">
+
+            <h3>{{impdate.date | date}}</h3>
+            <h4>{{impdate.title}}</h4>
+
+
+        </div>
+
+               
+    </div>
+</div>

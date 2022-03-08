@@ -1,10 +1,29 @@
-<p>edit-imp-date works!</p>
-<form [formGroup] = "editFormGroup" (ngSubmit)="onSubmit()" >
-
-<input type="date" data-test="input-date" placeholder="Date" formControlName="dateControl">
-<input type="text" data-test="input-title" placeholder="Title" formControlName="titleControl">
-<button data-test="btn-submit" [disabled]="editFormGroup.invalid">Save</button>
 
 
+<div class="container">
 
-</form>
+
+    <div class="row">
+
+        <h2 class="text-center">
+            Edit Important Date 
+        </h2>
+
+        <div>
+            <form [formGroup] = "editFormGroup" (ngSubmit)="onSubmit()" >
+
+            <div class="form-group">
+                <input class="form-control my-3" type="date" data-test="input-date" placeholder="Date" formControlName="dateControl">
+
+            </div>
+
+            <div class="form-group">
+                <input class="form-control my-3" type="text" data-test="input-title" placeholder="Title" formControlName="titleControl">
+
+            </div>
+            <button class="btn btn-primary my-3" data-test="btn-submit" [disabled]="editFormGroup.invalid">Save</button>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="container">
+
+    <nav>
+
+        <ul class="nav m-5">
+            <li  class="nav-item"><a routerLink="" class="nav-link">Home</a></li>
+
+           
+
+            <li class="nav-item dropdown">
+                <a  class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
+
+                <div class="dropdown-menu">
+
+                   
+                        <a class="dropdown-item" routerLink="add/impdate"> AddImportantDate</a>                  
+                        <a class="dropdown-item" routerLink="add/timeline">AddTimeLine</a>
+                   
+
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <a  class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit</a>
+
+                <div class="dropdown-menu">
+
+                   
+                        <a class="dropdown-item" routerLink="edit/impdate"  >Edit Impotant Date</a>                
+                        <a class="dropdown-item" routerLink="edit/timeline" >Edit TimeLine</a>
+                   
+
+                </div>
+                
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <a  class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Show</a>
+
+                <div class="dropdown-menu">
+
+                   
+                    <a routerLink="show/chats"     class="dropdown-item">Show All Chats </a>
+                    <a routerLink="show/impdates"  class="dropdown-item">Show Important Dates </a>
+                    <a routerLink="show/timelines" class="dropdown-item">Show  TimeLine</a>
+                </div>
+                
+            </li>
+            
+           
+
+           <li class="nav-item">
+               <a routerLink="view/timeline" class="nav-link">View Timeline </a>
+           </li>
+
+          
+           
+        </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
+
+    
+
+
+</div>

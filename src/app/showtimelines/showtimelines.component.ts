@@ -4,7 +4,7 @@ import { TimelineService } from './../service/timeline.service';
 import { Component, OnInit } from '@angular/core';
 import {Timeline} from '../models/timeline';
 import { Page } from '../models/page';
-
+import * as moment from "moment";
 
 @Component({
   selector: 'app-showtimelines',
@@ -27,12 +27,34 @@ export class ShowtimelinesComponent implements OnInit {
     }
 
   initData(){
-    this.timelineService.getTimelineList(this.pageNo , this.pageSize).subscribe((page) => {
-      this.timelineList = page.getContent();
-      this.pageNo = page.pageNo;
-      this.pageSize = page.pageSize;
-      this.noOfElements = page.noOfElements;
-    });
+ //   this.timelineService.getTimelineList(this.pageNo , this.pageSize).subscribe((page) => {
+      //this.timelineList = page.getContent();
+      
+      //this.pageNo = page.pageNo;
+      //this.pageSize = page.pageSize;
+      //this.noOfElements = page.noOfElements;
+ //   });
+
+    this.timelineList =[
+      {timelineName: "timeline one " , timelineType: "tym typ" , timelineId:"id one " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()} ,
+      {timelineName: "timeline two " , timelineType: "tym typ" , timelineId:"id two " , startingDate: moment.now()}
+    ];
   }
 
 

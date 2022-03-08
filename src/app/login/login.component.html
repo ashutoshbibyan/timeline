@@ -1,9 +1,43 @@
-<form [formGroup]="formLogin" (ngSubmit)="onSubmit()" data-test="form-login">
+<div class="container">
 
-  <input type="text" data-test="input-userName" placeholder="UserName" formControlName='userName'>
+  <div class="row w-75 m-auto justify-content-center">
 
-  <input type="password" data-test="input-password" placeholder="Password" formControlName='password'>
+    <h2 class="my-3">LogIn</h2>
 
-  <button data-test="btn-submit" [disabled]="!formLogin.valid">Submit</button>
+    <div class="">
+  
+      <form  [formGroup]="formLogin" (ngSubmit)="onSubmit()" data-test="form-login">
+  
+  
+        <div class="form-group  my-3">
+      
+          <input class="form-control" type="text" data-test="input-userName" placeholder="UserName" formControlName='userName'>
+      
+        </div>
+      
+       
+        <div class="form-group  my-3">
+  
+      
+          <input class="form-control" type="password" data-test="input-password" placeholder="Password" formControlName='password'>
+      
 
-</form>
+        </div>
+      
+
+        
+        <button class="btn btn-primary my-2" data-test="btn-submit" [disabled]="!formLogin.valid">Submit</button>
+
+      
+      </form>
+  
+  
+    </div>
+  
+  </div>
+  
+  
+  
+
+</div>
+

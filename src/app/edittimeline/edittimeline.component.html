@@ -1,15 +1,38 @@
-<p>edittimeline works!</p>
 
-<form [formGroup]="timelineFormgroup" (ngSubmit)="onSubmit()" >
 
-  <input type="text" placeholder="TimeLine Name" data-test="input-timeline-name" formControlName="timelineName" >
-  <input type="date" placeholder="Starting Date" data-test="input-starting-date" formControlName="startingDate">
-  <select id="timelinetype" data-test="select-timeline-type" formControlName="selectTimelineType" >
+<div class="container">
 
-    <option *ngFor="let type of timelineTypes" [value]="type">{{type}}</option>
+  <h2 class="text-center">
+    Edit Timeline 
+  </h2>
 
-  </select>
+  <div>
 
-  <button data-test="btn-submit" type="submit" [disabled]="timelineFormgroup.invalid" >Submit</button>
+    <form [formGroup]="timelineFormgroup" (ngSubmit)="onSubmit()" >
 
-</form>
+
+    <div class="form-group">
+      <input  class="form-control my-3" type="text" placeholder="TimeLine Name" data-test="input-timeline-name" formControlName="timelineName" >
+
+    </div>
+
+    <div class="form-group">
+      <input  class="form-control my-3" type="date" placeholder="Starting Date" data-test="input-starting-date" formControlName="startingDate">
+
+    </div>
+
+    <div class="form-group">
+
+      <select class="form-control my-3"  id="timelinetype" data-test="select-timeline-type" formControlName="selectTimelineType" >
+
+        <option *ngFor="let type of timelineTypes" [value]="type">{{type}}</option>
+    
+      </select>
+
+    </div>
+
+    <button class="btn btn-primary" data-test="btn-submit" type="submit" [disabled]="timelineFormgroup.invalid" >Submit</button>
+
+    </form>
+  </div>
+</div>

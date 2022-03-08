@@ -21,8 +21,9 @@ import { AddwhtsappchatComponent } from './addwhtsappchat/addwhtsappchat.compone
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { ShowwhtsappchatComponent } from './showwhtsappchat/showwhtsappchat.component';
 import { ShowallchatsComponent } from './showallchats/showallchats.component'; // for the validation of the reactive forms
-
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,9 @@ import { ShowallchatsComponent } from './showallchats/showallchats.component'; /
     EditImpDateComponent,
     AddwhtsappchatComponent,
     ShowwhtsappchatComponent,
-    ShowallchatsComponent
+    ShowallchatsComponent,
+    UserHomeComponent,
+    TimelineViewComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,9 @@ import { ShowallchatsComponent } from './showallchats/showallchats.component'; /
     ReactiveFormsModule,
     HttpClientModule,
     MatPaginatorModule,
-    RxReactiveFormsModule
+    RxReactiveFormsModule,
+    MatSnackBarModule,
+   
     ],
   providers: [],
   bootstrap: [AppComponent]

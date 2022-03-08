@@ -4,6 +4,9 @@ import { WhtsappchatService } from './../service/whtsappchat.service';
 import { Chat } from './../models/chat';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { of } from 'rxjs';
+
 
 @Component({
   selector: 'app-showallchats',
@@ -19,8 +22,17 @@ export class ShowallchatsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.chats = this.whtsAppChatService.getAllChats();
+   // this.chats = this.whtsAppChatService.getAllChats();
 
+   const chatsStub = [{chatDate: moment.now() , chatTitle: ' test title one ' , chatId: 'test chat id ' } ,
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'} ,
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'},
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'},
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'},
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'},
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'},
+   {chatDate: moment.now() , chatTitle: 'chat test title two ' , chatId: 'test chat id'}];
+    this.chats = of(chatsStub);
   }
 
   edit(chatId: string){

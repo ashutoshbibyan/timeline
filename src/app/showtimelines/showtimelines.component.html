@@ -1,17 +1,36 @@
-<p>showtimelines works!</p>
 
-<div data-test="timeline" *ngFor="let timeline of timelineList">
+<div class="container">
 
-  <h2 data-test="timeline-name">{{timeline.timelineName}}</h2>
-  <h3 data-test="timeline-type">{{timeline.timelineType}} </h3>
+  <h2 class="text-center">
+    Show Timeline
+  </h2>
 
-  <button data-test="btn-edit"  (click)="editTimeline(timeline.timelineId)">Edit</button>
-  <button data-test="btn-delete" (click)="deleteTimeline(timeline.timelineId)">Delete</button>
+  <div class="card-deck d-flex justify-content-start flex-wrap">
+
+    <div class="card m-3 " style="width: 18rem;" *ngFor="let timeline of timelineList">
+
+      <div class="card-body">
+
+        <h2 class="card-title m-2" data-test="timeline-name">{{timeline.timelineName}}</h2>
+        <h3 class="card-text  m-2" data-test="timeline-type">{{timeline.timelineType}} </h3>
+      
+        <button class="btn btn-primary m-2" data-test="btn-edit"  (click)="editTimeline(timeline.timelineId)">Edit</button>
+        <button class="btn btn-warning m-2" data-test="btn-delete" (click)="deleteTimeline(timeline.timelineId)">Delete</button>
+
+
+
+
+      </div>
+
+      <div class="card-footer">
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <mat-paginator [length]="noOfElements" [pageIndex]="pageNo" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"> </mat-paginator>
 
 
 </div>
-
-<mat-paginator [length]="noOfElements" [pageIndex]="pageNo" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"> </mat-paginator>
-
-
-

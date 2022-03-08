@@ -1,10 +1,31 @@
-<p>showallchats works!</p>
+<div class="container">
 
-<div *ngFor="let chat of chats |async" >
 
-  <h4 data-test='chat-title'> {{chat.chatTitle}} </h4>
-  <h5 data-test='chat-date'> {{chat.chatDate | date}} </h5>
-  <button data-test='btn-edit' (click)="edit(chat.chatId)">Edit</button>
-  <button data-test='btn-delete' (click)="delete(chat.chatId)">Delete</button>
+  <h2 class="text-center">Chats</h2>
+
+  
+
+    <div class="card-deck d-flex justify-content-start flex-wrap" >
+
+      <div class="card m-3" style="width: 18em;" *ngFor="let chat of chats |async" >
+        
+        <div class="card-body">
+
+          <h3 class="card-title m-2 p-2" data-test='chat-title'> {{chat.chatTitle}} </h3>
+          <p class="card-text   m-2 p-2"    data-test='chat-date'> {{chat.chatDate | date}}</p>
+
+          <button class="btn p-2 m-2" data-test='btn-edit' (click)="edit(chat.chatId)">Edit</button>
+          <button class="btn btn-primary p-2 m-2" data-test='btn-delete' (click)="delete(chat.chatId)">Delete</button>
+
+        </div>
+        <div class="card-footer">
+         
+        </div>
+      </div>
+      
+     
+    </div>
+
+ 
 
 </div>

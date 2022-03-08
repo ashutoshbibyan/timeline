@@ -1,10 +1,36 @@
-<p>usersignup works!</p>
-
-<form [formGroup]="userSignupForm" (ngSubmit)="onSubmit()">
-
-  <input type="text" placeholder="UserName" data-test="input-username" formControlName="userName">
-  <input type="password" placeholder="Password" data-test="input-password" formControlName="password">
-  <button type="submit" data-test="btn-submit" [disabled]="!userSignupForm.valid">Submit</button>
 
 
-</form>
+
+
+<div class="container">
+
+ 
+
+  <div class="row w-75 m-auto">
+  
+    <h2 class="my-3">SignUp</h2>
+
+    <form [formGroup]="userSignupForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group my-3">
+
+        <input class="form-control" type="text" placeholder="UserName" data-test="input-username" formControlName="userName">
+
+      </div>
+
+      <div class="form-group my-3">
+
+        <input class="form-control" type="password" placeholder="Password" data-test="input-password" formControlName="password">
+
+      </div>
+
+      <button class="btn btn-primary my-3" type="submit" data-test="btn-submit" [disabled]="!userSignupForm.valid">Submit</button>
+    
+    
+    </form>
+
+
+  </div>
+
+
+</div>

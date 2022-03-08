@@ -1,9 +1,34 @@
-<p>showimpdates works!</p>
 
-<div *ngFor = "let impdate of impDates | async">
 
-  <h3 data-test="imp-date">{{impdate.date}}</h3>
-  <h5 data-test="imp-date-title">{{impdate.title}}</h5>
-  <button data-test="btn-edit" (click)="edit(impdate.impdateId)">Edit</button>
-  <button data-test="btn-delete" (click)="delete(impdate.impdateId)">Delete</button>
+<div class="container">
+
+
+  <h2 class="text-center">
+    Show Important Date 
+  </h2>
+
+  <div class="card-deck d-flex justify-content-start flex-wrap">
+
+    <div class="card m-3" style="width: 18em;" *ngFor = "let impdate of impDates | async">
+
+      <div class="card-body">
+
+        <h3 class="card-title" data-test="imp-date">{{impdate.date | date}}</h3>
+        <h5 class="card-text"  data-test="imp-date-title">{{impdate.title}}</h5>
+
+        <button class="btn"    data-test="btn-edit" (click)="edit(impdate.impdateId)">Edit</button>
+
+        <button class="btn btn-accent" data-test="btn-delete" (click)="delete(impdate.impdateId)">Delete</button>
+
+
+      </div>
+
+      <div class="card-footer">
+         
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
